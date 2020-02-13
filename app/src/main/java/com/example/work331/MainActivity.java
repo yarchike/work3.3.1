@@ -17,18 +17,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final TextView output = findViewById(R.id.output);
-
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Button btn = (Button) v;
-                if (output.getText().toString().contains(".") && btn.getText().equals(".")) {
-                    Toast.makeText(MainActivity.this, getText(R.string.point_tosk), Toast.LENGTH_LONG).show();
-                } else {
-                    String num = output.getText().toString() + btn.getText();
-                    output.setText(num);
+                switch (btn.getId()) {
+                    case (R.id.point):
+                        clicPoint(btn, output);
+                        break;
+                    default:
+                        clicNumber(btn, output);
                 }
-
 
             }
         };
@@ -66,5 +65,20 @@ public class MainActivity extends AppCompatActivity {
         Button point = findViewById(R.id.point);
         point.setOnClickListener(listener);
 
+
+    }
+
+    private void clicNumber(Button btn, TextView output) {
+        String num = output.getText().toString() + btn.getText();
+        output.setText(num);
+    }
+
+    private void clicPoint(Button btn, TextView output) {
+        if (output.getText().toString().contains(getString(R.string.point))) {
+            Toast.makeText(MainActivity.this, getText(R.string.point_tosk), Toast.LENGTH_LONG).show();
+        } else {
+            String num = output.getText().toString() + btn.getText();
+            output.setText(num);
+        }
     }
 }
